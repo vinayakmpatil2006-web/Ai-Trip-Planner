@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Outfit', sans-serif;
+}
+
+@layer utilities {
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+  .hover\:scale-102:hover {
+    transform: scale(1.02);
+  }
+  .glass {
+    @apply bg-white/70 backdrop-blur-md border border-white/20 dark:bg-slate-900/70 dark:border-slate-700/50;
+  }
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-lg border border-white/40 shadow-xl dark:bg-slate-800/80 dark:border-slate-700/50 dark:shadow-2xl;
+  }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(15px); }
+}
+
+@keyframes float-fast {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(8px); }
+}
+
+@layer utilities {
+  .animate-float-slow {
+    animation: float-slow 5s ease-in-out infinite;
+  }
+  .animate-float-fast {
+    animation: float-fast 3s ease-in-out infinite;
+  }
+}
