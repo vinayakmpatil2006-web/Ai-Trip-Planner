@@ -1,13 +1,13 @@
 # VoyageAI — AI Trip Planner
 
-An intelligent travel planning application powered by Google Gemini AI and Firebase. Create personalized trip itineraries with AI-generated recommendations, manage multiple trips, search and filter your itineraries, and explore destination details with integrated Google Maps.
+An intelligent travel planning application powered by Groq AI and Firebase. Create personalized trip itineraries with AI-generated recommendations, manage multiple trips, search and filter your itineraries, and explore destination details with integrated Google Maps.
 
 **[Full UI Documentation →](./UI_SYSTEM.md)**
 
 ## ✨ Features
 
 ### Core Features
-- **AI-Powered Itineraries**: Generate personalized trip plans using Google Gemini in seconds
+- **AI-Powered Itineraries**: Generate personalized trip plans using Groq and Llama 3.3 in seconds
 - **Hotel Recommendations**: Curated hotel suggestions with prices and ratings
 - **Daily Itineraries**: Hour-by-hour activity plans with Google Maps integration
 - **Multi-Trip Management**: Create, view, search, filter, and delete trips
@@ -27,7 +27,7 @@ An intelligent travel planning application powered by Google Gemini AI and Fireb
 - **Frontend**: React 18.3, React Router 6
 - **Styling**: Tailwind CSS, PostCSS, Autoprefixer
 - **UI Components**: Lucide React Icons
-- **AI**: Google Generative AI (Gemini)
+- **AI**: Groq API with Llama 3.3 70B
 - **Backend**: Firebase (Firestore, Authentication)
 - **Build**: Vite 5.4
 - **Notifications**: Sonner Toast
@@ -63,7 +63,8 @@ src/
 
 ### Prerequisites
 - Node.js 16+ and npm/yarn
-- Google Cloud account with APIs enabled
+- Groq account with an API key
+- Google Cloud account with Maps APIs enabled
 - Firebase project
 
 ### Step 1: Clone and Install
@@ -79,9 +80,9 @@ npm install lucide-react
 
 ### Step 2: Configure APIs
 
-**1. Google Gemini API**
-- Go to [aistudio.google.com](https://aistudio.google.com/app/apikey)
-- Create API key
+**1. Groq API**
+- Go to [console.groq.com/keys](https://console.groq.com/keys)
+- Create an API key
 - Copy the key
 
 **2. Firebase Setup**
@@ -107,8 +108,8 @@ cp .env.example .env
 Then fill in your credentials:
 
 ```env
-# Gemini API Key
-VITE_GEMINI_API_KEY=your_gemini_api_key_here
+# Groq API Key
+VITE_GROQ_API_KEY=your_groq_api_key_here
 
 # Firebase Configuration
 VITE_FIREBASE_API_KEY=your_firebase_api_key
@@ -183,8 +184,8 @@ npm run preview
 - ✅ Verify `VITE_FIREBASE_*` variables are correct
 
 ### "Trip generation fails"
-- ✅ Verify `VITE_GEMINI_API_KEY` is valid
-- ✅ Check API quotas in Google AI Studio
+- ✅ Verify `VITE_GROQ_API_KEY` is valid
+- ✅ Check API limits in the Groq console
 - ✅ Ensure destination is a real city
 - ✅ Check browser console for specific error
 
@@ -203,7 +204,8 @@ npm run preview
 ⚠️ **Important Security Practices:**
 - `.env` file is in `.gitignore` and never committed
 - `.env.example` contains only placeholders
-- Never expose API keys in code
+- Never commit API keys or share them publicly
+- Treat Vite environment variables as browser-visible; restrict and rotate keys as needed
 - Firebase authentication is required for operations
 - Firestore security rules limit data access
 - If keys are exposed, regenerate them immediately
@@ -225,10 +227,9 @@ npm run preview
 
 ## API Limits & Costs
 
-### Gemini API
-- Free tier: 60 requests/minute
-- Generous free quota for testing
-- See [pricing](https://ai.google.dev/pricing)
+### Groq API
+- Limits vary by model and account tier
+- Check the current limits and pricing in the [Groq console](https://console.groq.com/settings/limits)
 
 ### Google Maps API
 - Free tier: $200/month credit
