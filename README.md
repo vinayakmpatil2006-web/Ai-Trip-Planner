@@ -1,4 +1,4 @@
-# VoyageAI — AI Trip Planner
+AI Trip Planner
 
 An intelligent travel planning application powered by Groq AI and Firebase. Create personalized trip itineraries with AI-generated recommendations, manage multiple trips, search and filter your itineraries, and explore destination details with integrated Google Maps.
 
