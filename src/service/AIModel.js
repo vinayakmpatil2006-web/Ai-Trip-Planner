@@ -9,6 +9,12 @@
 import Groq from "groq-sdk";
 
 const apiKey = import.meta.env.VITE_GROQ_API_KEY;
+const configuredModel = import.meta.env.VITE_GROQ_MODEL?.trim();
+const models = [
+  configuredModel,
+  "llama-3.1-8b-instant",
+  "llama-3.3-70b-versatile",
+].filter((value, index, list) => value && list.indexOf(value) === index);
 
 if (!apiKey) {
   console.error("❌ VITE_GROQ_API_KEY is not set in .env file");
@@ -23,33 +29,38 @@ const groq = new Groq({
 
 export const chatSession = {
   generateContent: async (prompt) => {
-    try {
-      const response = await groq.chat.completions.create({
-        model: "llama-3.3-70b-versatile",
-        messages: [
-          {
-            role: "user",
-            content: prompt,
-          },
-        ],
-        temperature: 0.7,
-        max_tokens: 2048,
-        response_format: { type: "json_object" },
-      });
+    let lastError;
 
-      const content = response.choices[0]?.message?.content || "{}";
-      return {
-        response: {
-          text: () => content,
-        },
-      };
-    } catch (error) {
-      console.error("Groq API Error:", error);
-      // If this model fails, try fallback
-      if (error.message?.includes("decommissioned")) {
-        console.error("❌ Model decommissioned - trying fallback...");
+    for (const model of models) {
+      try {
+        const response = await groq.chat.completions.create({
+          model,
+          messages: [
+            {
+              role: "user",
+              content: prompt,
+            },
+          ],
+          temperature: 0.7,
+          max_tokens: 8192,
+          response_format: { type: "json_object" },
+        });
+
+        const content = response.choices[0]?.message?.content || "{}";
+        return {
+          response: {
+            text: () => content,
+          },
+        };
+      } catch (error) {
+        lastError = error;
+        const errorText = `${error?.message || ""}`.toLowerCase();
+        const modelUnavailable = error?.status === 404 || errorText.includes("decommissioned") || (errorText.includes("model") && errorText.includes("not found"));
+        if (!modelUnavailable) throw error;
+        console.warn(`Groq model unavailable: ${model}. Trying the next model.`);
       }
-      throw error;
     }
+
+    throw lastError;
   },
 };

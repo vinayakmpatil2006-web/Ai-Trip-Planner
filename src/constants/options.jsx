@@ -41,7 +41,7 @@ export const SelectBudgetOptions = [
     title: "Budget",
     desc: "Stay conscious of costs",
     icon: "💰",
-    value: "$",
+    value: "₹",
     label: "💰 Budget",
   },
   {
@@ -49,7 +49,7 @@ export const SelectBudgetOptions = [
     title: "Moderate",
     desc: "Keep costs on the average side",
     icon: "💵",
-    value: "$$",
+    value: "₹₹",
     label: "💵 Moderate",
   },
   {
@@ -57,7 +57,7 @@ export const SelectBudgetOptions = [
     title: "Luxury",
     desc: "Don't worry about costs",
     icon: "💎",
-    value: "$$$",
+    value: "₹₹₹",
     label: "💎 Luxury",
   },
 ];
@@ -70,7 +70,7 @@ The JSON object must follow this exact schema:
     {
       "name": "string",
       "address": "string",
-      "price": "string (e.g. '$150/night')",
+      "price": "string (e.g. '₹1500/night')",
       "imageUrl": "string (a real, publicly accessible image URL from unsplash.com or similar)",
       "rating": "string",
       "description": "string"
@@ -86,7 +86,7 @@ The JSON object must follow this exact schema:
           "location": "string",
           "description": "string",
           "imageUrl": "string (a real, publicly accessible image URL, must be different hotel/place images)",
-          "ticketPricing": "string (e.g. 'Free' or '$20/person')",
+          "ticketPricing": "string (e.g. 'Free' or '₹200/person')",
           "timeToVisit": "string (e.g. '2-3 hours')"
         }
       ]

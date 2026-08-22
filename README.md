@@ -110,6 +110,8 @@ Then fill in your credentials:
 ```env
 # Groq API Key
 VITE_GROQ_API_KEY=your_groq_api_key_here
+# Optional model override if the default model is unavailable
+VITE_GROQ_MODEL=llama-3.3-70b-versatile
 
 # Firebase Configuration
 VITE_FIREBASE_API_KEY=your_firebase_api_key

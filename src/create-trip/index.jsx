@@ -8,7 +8,7 @@ import { chatSession } from "../service/AIModel";
 import { AI_TRIP_PROMPT, BUDGET_OPTIONS, TRAVELER_OPTIONS } from "../constants/uiConfig";
 import { toast } from "sonner";
 import Header from "../components/Header";
-import { Loader, MapPin, Calendar, DollarSign, Users, Info } from "lucide-react";
+import { Loader, MapPin, Calendar, IndianRupee, Users, Info } from "lucide-react";
 
 function useGooglePlacesAutocomplete(inputRef, onSelect) {
   useEffect(() => {
@@ -142,7 +142,12 @@ export default function CreateTrip() {
       const rawText = response.response.text();
       
       const cleaned = rawText.replace(/```json|```|`/gi, "").trim();
-      const tripData = JSON.parse(cleaned);
+      let tripData;
+      try {
+        tripData = JSON.parse(cleaned);
+      } catch {
+        throw new Error("The AI returned an incomplete itinerary. Please try again with fewer nights.");
+      }
 
       const docId = Date.now().toString();
       await setDoc(doc(db, "AITrips", docId), {
@@ -158,8 +163,25 @@ export default function CreateTrip() {
       navigate(`/view-trip/${docId}`);
     } catch (err) {
       toast.dismiss("trip-gen");
-      toast.error("Failed to generate trip. Please try again.");
-      console.error(err);
+      console.error("Trip generation failed:", err);
+
+      const status = err?.status || err?.response?.status;
+      const message = err?.message || "";
+      if (!import.meta.env.VITE_GROQ_API_KEY) {
+        toast.error("Groq API key is missing. Add VITE_GROQ_API_KEY to .env and restart the app.");
+      } else if (status === 401 || message.toLowerCase().includes("invalid api key")) {
+        toast.error("Groq API key is invalid or expired. Check your .env file.");
+      } else if (status === 429 || message.toLowerCase().includes("rate limit")) {
+        toast.error("AI rate limit reached. Please wait a moment and try again.");
+      } else if (status === 404 || message.toLowerCase().includes("decommissioned") || message.toLowerCase().includes("model")) {
+        toast.error("The configured AI model is unavailable. Set VITE_GROQ_MODEL in .env and restart the app.");
+      } else if (message.includes("incomplete itinerary")) {
+        toast.error(message);
+      } else if (err?.code === "permission-denied" || err?.code === "failed-precondition") {
+        toast.error("Trip generated, but Firebase could not save it. Check Firestore rules.");
+      } else {
+        toast.error("Trip generation failed. Check the console for details and try again.");
+      }
     } finally {
       setLoading(false);
     }
@@ -171,13 +193,13 @@ export default function CreateTrip() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f5f5f5] text-[#1a1a1a] font-sans">
+    <div className="trip-form min-h-screen bg-[#f5f5f5] text-[#1a1a1a] dark:bg-slate-950 dark:text-slate-100 font-sans">
       <Header user={user} />
 
       <main className="max-w-4xl mx-auto px-4 py-8">
         <h1 className="text-2xl font-bold mb-6">Plan your perfect trip</h1>
         
-        <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6 space-y-6">
+        <div className="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-lg shadow-sm p-6 space-y-6">
           {/* Destination & Dates */}
           <div className="grid md:grid-cols-2 gap-6">
             <div>
@@ -246,7 +268,7 @@ export default function CreateTrip() {
               <label className="block font-bold text-sm mb-1">Total Budget (₹)</label>
               <div className="relative border border-gray-300 rounded focus-within:ring-2 focus-within:ring-booking-link">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <DollarSign className="text-gray-400" size={20} />
+                  <IndianRupee className="text-gray-400" size={20} />
                 </div>
                 <input
                   type="number"

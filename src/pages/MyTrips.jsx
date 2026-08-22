@@ -14,7 +14,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { db, auth } from "../service/firebaseConfig";
 import Header from "../components/Header";
 import { SkeletonGrid } from "../components/LoadingSkeleton";
-import { Search, Trash2, Calendar, Users, DollarSign, CheckCircle, Clock } from "lucide-react";
+import { Search, Trash2, Calendar, Users, IndianRupee, CheckCircle, Clock } from "lucide-react";
 import { toast } from "sonner";
 import { formatDate, getImageUrl, getRelativeTime } from "../constants/uiConfig";
 
@@ -99,8 +99,8 @@ function TripCard({ trip, onDelete }) {
         {/* Badges with Icons */}
         <div className="grid grid-cols-3 gap-3 mb-5">
           <div className="flex flex-col items-center p-3 bg-orange-100 rounded-lg group-hover:bg-orange-200 transition-colors">
-            <DollarSign className="w-4 h-4 text-orange-600 mb-1" />
-            <span className="text-xs text-orange-900 text-center font-semibold">{trip.userSelection?.budget}</span>
+            <IndianRupee className="w-4 h-4 text-orange-600 mb-1" />
+            <span className="text-xs text-orange-900 text-center font-semibold">₹{Number(trip.userSelection?.budget || 0).toLocaleString("en-IN")}</span>
           </div>
           <div className="flex flex-col items-center p-3 bg-blue-100 rounded-lg group-hover:bg-blue-200 transition-colors">
             <Users className="w-4 h-4 text-blue-600 mb-1" />

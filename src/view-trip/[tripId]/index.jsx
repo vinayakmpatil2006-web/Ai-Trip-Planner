@@ -11,7 +11,7 @@ import BudgetBreakdown from "../../components/BudgetBreakdown";
 import TransportCard from "../../components/TransportCard";
 import MapSection from "../../components/MapSection";
 import { toast } from "sonner";
-import { MapPin, Clock, DollarSign, Share2, Printer, ChevronRight, Check, Star, Sun, Sunset, Moon } from "lucide-react";
+import { MapPin, Clock, IndianRupee, Share2, Printer, ChevronRight, Check, Star, Sun, Sunset, Moon } from "lucide-react";
 import { validateHotelLocation } from "../../constants/uiConfig";
 import { GetPlaceDetails } from "../../service/GlobalApi";
 
@@ -172,7 +172,7 @@ function ActivityCard({ activity, destination }) {
           )}
           {activity.ticketPricing && !activity.ticketPrice && (
             <span className="flex items-center gap-1 text-xs font-semibold text-green-700">
-              <DollarSign size={13} /> {activity.ticketPricing}
+              <IndianRupee size={13} /> {activity.ticketPricing}
             </span>
           )}
         </div>
