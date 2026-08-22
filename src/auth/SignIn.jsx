@@ -47,7 +47,7 @@ export default function SignIn({ onClose }) {
 
     setLoading(true);
     try {
-      await signInWithEmailAndPassword(auth, formData.email, formData.password);
+      await signInWithEmailAndPassword(auth, formData.email.trim(), formData.password);
       toast.success("✅ Signed in successfully!");
       navigate("/create-trip");
       onClose?.();
@@ -58,6 +58,8 @@ export default function SignIn({ onClose }) {
         toast.error("No account found with this email. Please sign up first.");
       } else if (error.code === "auth/wrong-password") {
         toast.error("Incorrect password. Please try again.");
+      } else if (error.code === "auth/invalid-credential" || error.code === "auth/invalid-login-credentials") {
+        toast.error("Invalid email or password. If you signed up with Google, use Continue with Google.");
       } else if (error.code === "auth/invalid-email") {
         toast.error("Invalid email address format");
       } else if (error.code === "auth/too-many-requests") {

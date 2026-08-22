@@ -12,6 +12,31 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   font-family: 'Outfit', sans-serif;
+  background-color: #ffffff;
+  color: #0f172a;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+html.dark body {
+  background-color: #020617;
+  color: #f8fafc;
+}
+
+html.dark input,
+html.dark select,
+html.dark textarea {
+  background-color: #1e293b;
+  border-color: #475569;
+  color: #f8fafc;
+}
+
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+  color: #94a3b8;
+}
+
+html.dark label {
+  color: #f1f5f9;
 }
 
 @layer utilities {
@@ -49,4 +74,4 @@ body {
   .animate-float-fast {
     animation: float-fast 3s ease-in-out infinite;
   }
-}
+}

@@ -177,22 +177,22 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white text-slate-900 transition-colors dark:bg-slate-950 dark:text-slate-100">
       <Header user={null} />
 
       <div className="max-w-2xl mx-auto px-4 py-12">
         <button
           onClick={() => navigate("/")}
-          className="flex items-center gap-2 text-gray-500 hover:text-gray-900 mb-8 transition font-medium"
+          className="flex items-center gap-2 text-gray-500 hover:text-gray-900 dark:text-slate-400 dark:hover:text-white mb-8 transition font-medium"
         >
           <ArrowLeft size={20} /> Back to Home
         </button>
 
-        <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+        <div className="bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-slate-700">
           <h1 className="text-4xl font-bold text-center mb-2 bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
             Create Account
           </h1>
-          <p className="text-center text-gray-600 mb-8">Join AI Trip Planner for personalized trip planning</p>
+          <p className="text-center text-gray-600 dark:text-slate-400 mb-8">Join AI Trip Planner for personalized trip planning</p>
 
           {formStep === 1 ? (
             // Step 1: Email & Password
@@ -271,14 +271,14 @@ export default function SignUpPage() {
                   <div className="w-full border-t border-gray-300"></div>
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-white text-gray-600">or</span>
+                  <span className="px-2 bg-white dark:bg-slate-900 text-gray-600 dark:text-slate-400">or</span>
                 </div>
               </div>
 
               <button
                 onClick={handleGoogleSignUp}
                 disabled={loading}
-                className="w-full bg-gray-100 text-gray-900 font-semibold py-3 rounded-lg hover:bg-gray-200 transition flex items-center justify-center gap-3 hover:shadow-lg border border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-gray-100 dark:bg-slate-800 text-gray-900 dark:text-white font-semibold py-3 rounded-lg hover:bg-gray-200 dark:hover:bg-slate-700 transition flex items-center justify-center gap-3 hover:shadow-lg border border-gray-300 dark:border-slate-600 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -289,7 +289,7 @@ export default function SignUpPage() {
                 {loading ? "Signing up..." : "Sign up with Google"}
               </button>
 
-              <p className="text-center text-gray-600 mt-6">
+              <p className="text-center text-gray-600 dark:text-slate-400 mt-6">
                 Already have an account?{" "}
                 <button onClick={() => navigate("/signin")} className="text-teal-600 hover:text-teal-700 font-semibold">
                   Sign In

@@ -6,13 +6,12 @@
 3. Enter project name (e.g., "ai-trip-planner")
 4. Click "Continue"
 
-## Step 2: Enable Google Authentication
+## Step 2: Enable Authentication Providers
 1. In Firebase Console, go to **Authentication** (left sidebar)
 2. Click **Get Started**
-3. Click on **Google** provider
-4. Toggle **Enable** ON
-5. Select your project email as the support email
-6. Click **Save**
+3. Open the **Sign-in method** tab
+4. Enable **Email/Password** and click **Save**. This is required for the email and password form.
+5. Enable **Google**, select your project email as the support email, and click **Save** if you want Google sign-in.
 
 ## Step 3: Get Your Web App Credentials
 1. In Firebase Console, click ⚙️ **Settings** (gear icon, top left)
@@ -77,6 +76,11 @@ VITE_FIREBASE_APP_ID=1:123456789:web:abcdef123456
 ### Issue: "auth/unauthorized-domain"
 - `localhost` is not in authorized domains
 - Add it in Step 5
+
+### Issue: "auth/invalid-credential"
+- Confirm the email and password belong to a user in this Firebase project.
+- Confirm **Email/Password** is enabled under **Authentication → Sign-in method**.
+- If the account was created with Google, use **Continue with Google** instead of the password form.
 
 ### Issue: "auth/cors_unsupported_client"
 - Make sure Google authentication is **enabled** in Firebase
