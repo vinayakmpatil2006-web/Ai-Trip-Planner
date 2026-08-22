@@ -35,8 +35,28 @@ html.dark textarea::placeholder {
   color: #94a3b8;
 }
 
-html.dark label {
+.dark .trip-form label {
   color: #f1f5f9;
+}
+
+.dark .trip-form hr {
+  border-color: #334155;
+}
+
+.dark .trip-form [class*="border-gray-"] {
+  border-color: #475569;
+}
+
+.dark .trip-form .bg-gray-100 {
+  background-color: #1e293b;
+}
+
+.dark .trip-form .bg-white {
+  background-color: #0f172a;
+}
+
+.dark .trip-form .hover\:bg-gray-50:hover {
+  background-color: #1e293b;
 }
 
 @layer utilities {
